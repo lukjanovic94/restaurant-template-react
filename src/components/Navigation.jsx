@@ -6,29 +6,42 @@ function Navigation() {
 
   return (
     <nav className="nav-container">
+      {/* LEVI DEO: CTA */}
       <div className="nav-left">
-        <h2>{siteConfig.name}</h2>
-      </div>
-
-      <div className="nav-right">
-        {/* Burger dugme za mobile */}
-        <button className="burger" onClick={() => setIsOpen(!isOpen)}>
-          ☰
-        </button>
-
-        {/* Dugme za poziv */}
         <a href={`tel:${siteConfig.phone}`} className="cta-btn">
           Pozovi
         </a>
       </div>
+      {/* SREDNJI DEO: logo / ime restorana */}
+      <div className="nav-center">
+        <h1 className="logo">{siteConfig.name}</h1>
+      </div>
+      {/* DESNI DEO: burger */}
+      <div className="nav-right">
+        <button
+          className="burger"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label="Open Menu"
+        >
+          ☰
+        </button>
+      </div>
 
-      {/* Mobile menu */}
+      {/* MOBILE MENU */}
       {isOpen && (
         <div className="mobile-menu">
-          <a href="#home">Početna</a>
-          <a href="#menu">Meni</a>
-          <a href="#about">O nama</a>
-          <a href="#contact">Kontakt</a>
+          <a href="#home" onClick={() => setIsOpen(false)}>
+            Početna
+          </a>
+          <a href="#menu" onClick={() => setIsOpen(false)}>
+            Meni
+          </a>
+          <a href="#about" onClick={() => setIsOpen(false)}>
+            O nama
+          </a>
+          <a href="#contact" onClick={() => setIsOpen(false)}>
+            Kontakt
+          </a>
         </div>
       )}
     </nav>

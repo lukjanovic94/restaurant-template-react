@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Restaurant Name",
+  name: "Gradska Pivnica Pančevo",
   tagline: "Best food in town",
   phone: "+381641234567",
   whatsapp: "+381641234567",
