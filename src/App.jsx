@@ -1,6 +1,7 @@
 import "./App.css";
 import { siteConfig } from "./data/siteConfig";
 import { useEffect } from "react";
+import Navigation from "./components/Navigation";
 
 function App() {
   useEffect(() => {
@@ -11,7 +12,7 @@ function App() {
 
   return (
     <>
-      <h1>{siteConfig.name}</h1>
+      <Navigation />
     </>
   );
 }
