@@ -1,0 +1,8 @@
+:root {
+    --primary: #c62828;
+    --secondary: #111111;
+    --light: #ffffff;
+    --gray: #777777;
+
+    --container-width: 1200px;
+}
