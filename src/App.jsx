@@ -2,6 +2,7 @@ import "./App.css";
 import { siteConfig } from "./data/siteConfig";
 import { useEffect } from "react";
 import Navigation from "./components/Navigation";
+import Hero from "./components/Hero/Hero";
 
 function App() {
   useEffect(() => {
@@ -13,6 +14,7 @@ function App() {
   return (
     <>
       <Navigation />
+      <Hero />
     </>
   );
 }

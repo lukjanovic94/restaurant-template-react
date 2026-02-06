@@ -11,7 +11,9 @@ body {
 }
 
 /* NAVIGATION CONTAINER */
-.nav-container {
+
+
+/* .nav-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -21,7 +23,28 @@ body {
     position: relative;
     gap: 2rem;
     z-index: 10;
+} */
+
+.navigation {
+    display: flex;
+    position: fixed;
+    justify-content: center;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    gap: 2rem;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background: transparent;
+    transition: background 0.3s ease;
 }
+
+.navigation.scrolled {
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(6px);
+}
+
 
 /* LEFT: CTA */
 .nav-left {
@@ -34,7 +57,7 @@ body {
 /* CENTER: logo / name */
 .nav-center {
     flex: 1;
-    font-size: 1rem;
+    font-size: 0.5rem;
     color: var(--primary);
     font-weight: bold;
     display: flex;
@@ -42,6 +65,11 @@ body {
     align-items: center;
     text-align: center;
     padding: 0.5rem;
+}
+
+.logo-img {
+    height: 4.5rem;
+    width: auto;
 }
 
 /* RIGHT: Burger */
@@ -65,7 +93,8 @@ body {
 
 /* Burger dugme */
 .burger {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    color: white;
     background: none;
     border: none;
     cursor: pointer;
@@ -85,4 +114,34 @@ body {
     padding: 1rem;
     border-top: 1px solid var(--gray);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.hero-section {
+    width: 100%;
+    height: 90vh;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-overlay {
+    background-color: rgba(0, 0, 0, 0.4);
+    /* tamna transparentna maska preko slike */
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.hero-overlay h1 {
+    color: var(--light);
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.hero::before {
+    background: rgba(0, 0, 0, 0.5);
 }

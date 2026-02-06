@@ -1,11 +1,19 @@
 import { useState } from "react";
 import { siteConfig } from "../data/siteConfig";
+import { useEffect } from "react";
 
 function Navigation() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <nav className="nav-container">
+    <nav className={`navigation ${scrolled ? "scrolled" : ""}`}>
       {/* LEVI DEO: CTA */}
       <div className="nav-left">
         <a href={`tel:${siteConfig.phone}`} className="cta-btn">
@@ -14,7 +22,11 @@ function Navigation() {
       </div>
       {/* SREDNJI DEO: logo / ime restorana */}
       <div className="nav-center">
-        <h1 className="logo">{siteConfig.name}</h1>
+        <img
+          src={siteConfig.logo}
+          alt={`${siteConfig.name} logo`}
+          className="logo-img"
+        />
       </div>
       {/* DESNI DEO: burger */}
       <div className="nav-right">
