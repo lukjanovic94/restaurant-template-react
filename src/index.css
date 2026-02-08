@@ -7,6 +7,7 @@ html {
   -webkit-text-size-adjust: 100%;
   /* Prevent horizontal scroll */
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -36,6 +37,12 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+/* Utility: Ensure last section has enough bottom padding for mobile devices */
+section:last-of-type {
+  padding-bottom: calc(6rem + env(safe-area-inset-bottom)) !important;
+  margin-bottom: 2rem;
 }
 
 /* Mobile viewport fix for iOS */

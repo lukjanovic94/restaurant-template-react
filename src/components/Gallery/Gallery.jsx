@@ -11,14 +11,37 @@ function Gallery() {
   // Disable body scroll when grid or fullscreen is open
   useEffect(() => {
     if (showGrid || showFullscreen) {
+      // Save current scroll position
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.width = '100%';
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'auto';
+      // Restore scroll position
+      const scrollY = document.body.style.top;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
+      if (scrollY) {
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+      }
     }
 
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      document.body.style.overflow = '';
     };
+  }, [showGrid, showFullscreen]);
+
+  // Resume autoplay when grid is closed
+  useEffect(() => {
+    if (!showGrid && !showFullscreen) {
+      setIsAutoPlaying(true);
+    }
   }, [showGrid, showFullscreen]);
 
   // Auto-advance slideshow
@@ -50,6 +73,13 @@ function Gallery() {
           setShowGrid(false);
         }
       } else if (showFullscreen) {
+        if (e.key === "ArrowRight") {
+          goToNext();
+        } else if (e.key === "ArrowLeft") {
+          goToPrev();
+        }
+      } else if (!showGrid && !showFullscreen) {
+        // Allow keyboard navigation on slideshow without pausing
         if (e.key === "ArrowRight") {
           goToNext();
         } else if (e.key === "ArrowLeft") {
@@ -90,9 +120,27 @@ function Gallery() {
     }
   };
 
-  const handleSlideshowClick = () => {
-    setIsAutoPlaying(false);
+  const handleSlideshowClick = (e) => {
+    // Don't open grid if clicking on navigation buttons or indicators
+    if (e.target.closest('.slideshow-nav-btn') || e.target.closest('.slideshow-indicators')) {
+      return;
+    }
     setShowGrid(true);
+  };
+
+  const handleSlideshowNext = (e) => {
+    e.stopPropagation();
+    goToNext();
+  };
+
+  const handleSlideshowPrev = (e) => {
+    e.stopPropagation();
+    goToPrev();
+  };
+
+  const handleIndicatorClick = (e, index) => {
+    e.stopPropagation();
+    setCurrentIndex(index);
   };
 
   const handleGridItemClick = (index) => {
@@ -127,14 +175,25 @@ function Gallery() {
           <div className="slideshow-overlay">
             <p>Click to view gallery</p>
           </div>
-          <div className="slideshow-indicators">
-            {galleryData.map((_, index) => (
-              <span
-                key={index}
-                className={`indicator ${index === currentIndex ? "active" : ""}`}
-              />
-            ))}
-          </div>
+
+          {/* Slideshow Navigation Arrows */}
+          <button className="slideshow-nav-btn slideshow-prev" onClick={handleSlideshowPrev}>
+            ‹
+          </button>
+          <button className="slideshow-nav-btn slideshow-next" onClick={handleSlideshowNext}>
+            ›
+          </button>
+        </div>
+
+        {/* Slideshow Indicators */}
+        <div className="slideshow-indicators">
+          {galleryData.map((_, index) => (
+            <span
+              key={index}
+              className={`indicator ${index === currentIndex ? "active" : ""}`}
+              onClick={(e) => handleIndicatorClick(e, index)}
+            />
+          ))}
         </div>
       </div>
 
