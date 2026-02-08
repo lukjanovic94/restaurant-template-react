@@ -1,0 +1,48 @@
+.highlights {
+    padding: 4rem 1.5rem;
+    background: #111;
+    color: #fff;
+}
+
+.section-title {
+    text-align: center;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    margin-bottom: 2.5rem;
+}
+
+.highlights-grid {
+    display: grid;
+    gap: 2rem;
+}
+
+.highlight-card {
+    background: #1a1a1a;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.highlight-image {
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+}
+
+.highlight-content {
+    padding: 1.5rem;
+}
+
+.highlight-content h3 {
+    margin-bottom: 0.5rem;
+}
+
+.highlight-content p {
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+
+/* desktop */
+@media (min-width: 768px) {
+    .highlights-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}

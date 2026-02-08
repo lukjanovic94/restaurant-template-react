@@ -1,0 +1,34 @@
+.gallery {
+    padding: 4rem 1.5rem;
+    background: #111;
+}
+
+.gallery-grid {
+    display: grid;
+    gap: 1rem;
+}
+
+.gallery-item {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+}
+
+/* tablet */
+@media (min-width: 600px) {
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* desktop */
+@media (min-width: 992px) {
+    .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .gallery-item {
+        height: 240px;
+    }
+}

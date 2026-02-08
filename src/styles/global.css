@@ -70,6 +70,7 @@ body {
 .logo-img {
     height: 4.5rem;
     width: auto;
+    border-radius: 1.5rem;
 }
 
 /* RIGHT: Burger */

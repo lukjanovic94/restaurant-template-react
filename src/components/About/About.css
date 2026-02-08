@@ -1,0 +1,23 @@
+.about {
+    padding: 4rem 1.5rem;
+    background: #0e0e0e;
+    color: #fff;
+}
+
+.about-container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-container h2 {
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    margin-bottom: 1.5rem;
+}
+
+.about-container p {
+    font-size: 1rem;
+    line-height: 1.7;
+    opacity: 0.85;
+    margin-bottom: 1rem;
+}
