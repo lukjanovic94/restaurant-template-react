@@ -1,0 +1,239 @@
+.footer {
+    background: #0a0a0a;
+    color: #e0e0e0;
+    padding: 3rem 1.5rem 2rem;
+    border-top: 1px solid #2a2a2a;
+    padding-bottom: 7rem;
+    padding-bottom: calc(7rem + env(safe-area-inset-bottom));
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-content {
+    display: grid;
+    /* grid-template-columns: repeat(2, 1fr); */
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+
+}
+
+/* Footer Section */
+.footer-section h3 {
+    color: #f5deb3;
+    /* wheat */
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.footer-section p,
+.footer-section a {
+    color: #b0b0b0;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover {
+    color: #f5deb3;
+}
+
+/* Brand Section */
+.footer-brand .brand-name {
+    color: #f5deb3;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.footer-brand .brand-description {
+    margin-bottom: 1rem;
+    opacity: 0.85;
+}
+
+/* Contact Info */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+}
+
+.contact-icon {
+    color: #f5deb3;
+    font-size: 1.1rem;
+    margin-top: 0.2rem;
+    min-width: 20px;
+}
+
+.contact-item a {
+    word-break: break-word;
+}
+
+/* Quick Links */
+.quick-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.quick-links a {
+    display: inline-block;
+    position: relative;
+    padding-left: 1rem;
+}
+
+.quick-links a::before {
+    content: "›";
+    position: absolute;
+    left: 0;
+    color: #f5deb3;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.quick-links a:hover::before {
+    transform: translateX(3px);
+}
+
+/* Social Links */
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 0.5rem;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: #1a1a1a;
+    border: 1px solid #2a2a2a;
+    border-radius: 50%;
+    color: #f5deb3;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: #f5deb3;
+    color: #0a0a0a;
+    border-color: #f5deb3;
+    transform: translateY(-3px);
+}
+
+/* Hours Section */
+.hours-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.hours-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #1a1a1a;
+}
+
+.hours-day {
+    color: #f5deb3;
+    font-weight: 500;
+}
+
+.hours-time {
+    color: #b0b0b0;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    border-top: 1px solid #1a1a1a;
+    padding-top: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.footer-bottom p {
+    color: #808080;
+    font-size: 0.85rem;
+    margin: 0;
+}
+
+.footer-bottom a {
+    color: #f5deb3;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.footer-bottom a:hover {
+    opacity: 0.8;
+}
+
+/* Tablet */
+@media (min-width: 600px) {
+    .footer {
+        padding: 4rem 2rem 2.5rem;
+        padding-bottom: 7rem;
+        padding-bottom: calc(7rem + env(safe-area-inset-bottom));
+    }
+
+    .footer-content {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+    .footer {
+        padding: 5rem 2rem 3rem;
+    }
+
+    .footer-content {
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 3rem;
+    }
+
+    .footer-brand {
+        grid-column: auto;
+    }
+
+    .footer-section h3 {
+        font-size: 1.2rem;
+    }
+
+    .social-links {
+        gap: 1.2rem;
+    }
+
+    .social-link {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+    .footer-content {
+        gap: 4rem;
+    }
+}

@@ -1,9 +1,9 @@
-import highlightsData from "./highlightsData";
+import highlightsData from "../../data/highlightsData";
 import "./Highlights.css";
 
 function Highlights() {
   return (
-    <section className="highlights">
+    <section className="highlights" id="menu">
       <h2 className="section-title">Preporučujemo</h2>
 
       <div className="highlights-grid">

@@ -8,6 +8,7 @@ html {
   /* Prevent horizontal scroll */
   overflow-x: hidden;
   scroll-behavior: smooth;
+  /* REMOVED: height constraints that limit scrolling */
 }
 
 body {
@@ -23,7 +24,7 @@ body {
   overflow-x: hidden;
   /* Better mobile rendering */
   width: 100%;
-  min-height: 100vh;
+  /* REMOVED: min-height: 100vh - This was preventing proper scrolling! */
   position: relative;
 }
 
@@ -31,7 +32,7 @@ body {
   /* Prevent horizontal scroll */
   overflow-x: hidden;
   width: 100%;
-  min-height: 100vh;
+  /* REMOVED: min-height: 100vh - This was limiting the container height! */
 }
 
 code {
@@ -40,10 +41,10 @@ code {
 }
 
 /* Utility: Ensure last section has enough bottom padding for mobile devices */
-section:last-of-type {
+/* section:last-of-type {
   padding-bottom: calc(6rem + env(safe-area-inset-bottom)) !important;
   margin-bottom: 2rem;
-}
+} */
 
 /* Mobile viewport fix for iOS */
 @supports (-webkit-touch-callout: none) {

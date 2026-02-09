@@ -1,12 +1,13 @@
 import "./App.css";
 import { siteConfig } from "./data/siteConfig";
 import { useEffect } from "react";
-import Navigation from "./components/Navigation";
+import Navigation from "./components/Navigation/Navigation";
 import Hero from "./components/Hero/Hero";
 import Features from "./components/Features/Features";
 import Highlights from "./components/Highlights/Highlights";
 import About from "./components/About/About";
 import Gallery from "./components/Gallery/Gallery";
+import Footer from "./components/Footer/Footer";
 
 function App() {
   useEffect(() => {
@@ -23,6 +24,7 @@ function App() {
       <Highlights />
       <About />
       <Gallery />
+      <Footer />
     </>
   );
 }

@@ -1,43 +1,43 @@
-import { useState, useEffect, useCallback } from "react";
-import galleryData from "./galleryData";
+import { useState, useEffect, useCallback, useRef } from "react";
+import galleryData from "../../data/galleryData";
 import "./Gallery.css";
 
 function Gallery() {
-  const [showGrid, setShowGrid] = useState(false); // overlay grid visibility
-  const [showFullscreen, setShowFullscreen] = useState(false); // fullscreen visibility
+  const [showGrid, setShowGrid] = useState(false);
+  const [showFullscreen, setShowFullscreen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const savedScrollPosition = useRef(0);
+  const pauseTimeoutRef = useRef(null);
 
-  // Disable body scroll when grid or fullscreen is open
+  // Lock body scroll when grid or fullscreen is open
   useEffect(() => {
-    if (showGrid || showFullscreen) {
-      // Save current scroll position
-      const scrollY = window.scrollY;
-      document.body.style.position = 'fixed';
-      document.body.style.top = `-${scrollY}px`;
-      document.body.style.width = '100%';
-      document.body.style.overflow = 'hidden';
+    if (showGrid) {
+      // Save position only when grid first opens
+      savedScrollPosition.current = window.pageYOffset;
+
+      // Lock the body
+      document.body.style.position = "fixed";
+      document.body.style.top = `-${savedScrollPosition.current}px`;
+      document.body.style.left = "0";
+      document.body.style.right = "0";
+      document.body.style.width = "100%";
     } else {
-      // Restore scroll position
-      const scrollY = document.body.style.top;
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-      if (scrollY) {
-        window.scrollTo(0, parseInt(scrollY || '0') * -1);
-      }
+      // Restore when grid closes (regardless of fullscreen state)
+      const scrollPos = savedScrollPosition.current;
+
+      document.body.style.position = "";
+      document.body.style.top = "";
+      document.body.style.left = "";
+      document.body.style.right = "";
+      document.body.style.width = "";
+
+      // Restore scroll position immediately without smooth scroll
+      window.scrollTo({ top: scrollPos, behavior: "instant" });
     }
+  }, [showGrid]);
 
-    return () => {
-      document.body.style.position = '';
-      document.body.style.top = '';
-      document.body.style.width = '';
-      document.body.style.overflow = '';
-    };
-  }, [showGrid, showFullscreen]);
-
-  // Resume autoplay when grid is closed
+  // Resume autoplay when both overlays are closed
   useEffect(() => {
     if (!showGrid && !showFullscreen) {
       setIsAutoPlaying(true);
@@ -54,14 +54,48 @@ function Gallery() {
     }
   }, [showGrid, showFullscreen, isAutoPlaying]);
 
+  // Function to pause autoplay for 1 seconds
+  const pauseAutoplay = useCallback(() => {
+    setIsAutoPlaying(false);
+
+    if (pauseTimeoutRef.current) {
+      clearTimeout(pauseTimeoutRef.current);
+    }
+
+    pauseTimeoutRef.current = setTimeout(() => {
+      setIsAutoPlaying(true);
+    }, 1000);
+  }, []);
+
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (pauseTimeoutRef.current) {
+        clearTimeout(pauseTimeoutRef.current);
+      }
+    };
+  }, []);
+
   // Navigation functions
   const goToNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % galleryData.length);
-  }, []);
+    pauseAutoplay();
+  }, [pauseAutoplay]);
 
   const goToPrev = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + galleryData.length) % galleryData.length);
-  }, []);
+    setCurrentIndex(
+      (prev) => (prev - 1 + galleryData.length) % galleryData.length,
+    );
+    pauseAutoplay();
+  }, [pauseAutoplay]);
+
+  const goToIndex = useCallback(
+    (index) => {
+      setCurrentIndex(index);
+      pauseAutoplay();
+    },
+    [pauseAutoplay],
+  );
 
   // Keyboard navigation
   useEffect(() => {
@@ -79,7 +113,6 @@ function Gallery() {
           goToPrev();
         }
       } else if (!showGrid && !showFullscreen) {
-        // Allow keyboard navigation on slideshow without pausing
         if (e.key === "ArrowRight") {
           goToNext();
         } else if (e.key === "ArrowLeft") {
@@ -121,8 +154,10 @@ function Gallery() {
   };
 
   const handleSlideshowClick = (e) => {
-    // Don't open grid if clicking on navigation buttons or indicators
-    if (e.target.closest('.slideshow-nav-btn') || e.target.closest('.slideshow-indicators')) {
+    if (
+      e.target.closest(".slideshow-nav-btn") ||
+      e.target.closest(".slideshow-indicators")
+    ) {
       return;
     }
     setShowGrid(true);
@@ -140,7 +175,7 @@ function Gallery() {
 
   const handleIndicatorClick = (e, index) => {
     e.stopPropagation();
-    setCurrentIndex(index);
+    goToIndex(index);
   };
 
   const handleGridItemClick = (index) => {
@@ -149,43 +184,62 @@ function Gallery() {
   };
 
   const handleGridOverlayClick = (e) => {
-    if (e.target.classList.contains('grid-overlay')) {
+    if (e.target.classList.contains("grid-overlay")) {
       setShowGrid(false);
     }
   };
 
   const handleFullscreenOverlayClick = (e) => {
-    if (e.target.classList.contains('fullscreen-overlay')) {
+    if (e.target.classList.contains("fullscreen-overlay")) {
       setShowFullscreen(false);
     }
   };
 
+  const handleCloseFullscreen = (e) => {
+    e.stopPropagation();
+    setShowFullscreen(false);
+  };
+
+  const handleCloseGrid = () => {
+    // Close grid (which will also close fullscreen if open)
+    setShowFullscreen(false);
+    setShowGrid(false);
+  };
+
   return (
-    <section className="gallery">
-      <h2 className="section-title">Ambijent</h2>
+    <section className="gallery" id="gallery">
+      <h2 className="section-title">Naša Galerija</h2>
 
       {/* Slideshow View */}
       <div className="slideshow-container" onClick={handleSlideshowClick}>
         <div className="slideshow-wrapper">
-          <img
-            src={galleryData[currentIndex]}
-            alt={`Gallery ${currentIndex + 1}`}
-            className="slideshow-image"
-          />
+          {galleryData.map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              alt={`Gallery ${index + 1}`}
+              className={`slideshow-image ${index === currentIndex ? "active" : ""}`}
+            />
+          ))}
+
           <div className="slideshow-overlay">
             <p>Click to view gallery</p>
           </div>
 
-          {/* Slideshow Navigation Arrows */}
-          <button className="slideshow-nav-btn slideshow-prev" onClick={handleSlideshowPrev}>
+          <button
+            className="slideshow-nav-btn slideshow-prev"
+            onClick={handleSlideshowPrev}
+          >
             ‹
           </button>
-          <button className="slideshow-nav-btn slideshow-next" onClick={handleSlideshowNext}>
+          <button
+            className="slideshow-nav-btn slideshow-next"
+            onClick={handleSlideshowNext}
+          >
             ›
           </button>
         </div>
 
-        {/* Slideshow Indicators */}
         <div className="slideshow-indicators">
           {galleryData.map((_, index) => (
             <span
@@ -200,7 +254,7 @@ function Gallery() {
       {/* Grid Overlay */}
       {showGrid && (
         <div className="grid-overlay" onClick={handleGridOverlayClick}>
-          <button className="grid-close-btn" onClick={() => setShowGrid(false)}>
+          <button className="grid-close-btn" onClick={handleCloseGrid}>
             ✕
           </button>
           <div className="grid-container">
@@ -227,18 +281,15 @@ function Gallery() {
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
         >
-          <button 
-            className="fullscreen-close-btn" 
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowFullscreen(false);
-            }}
+          <button
+            className="fullscreen-close-btn"
+            onClick={handleCloseFullscreen}
           >
             ✕
           </button>
-          
-          <button 
-            className="nav-btn prev-btn" 
+
+          <button
+            className="nav-btn prev-btn"
             onClick={(e) => {
               e.stopPropagation();
               goToPrev();
@@ -246,8 +297,8 @@ function Gallery() {
           >
             ‹
           </button>
-          
-          <div 
+
+          <div
             className="fullscreen-content"
             onClick={(e) => e.stopPropagation()}
           >
@@ -260,9 +311,9 @@ function Gallery() {
               {currentIndex + 1} / {galleryData.length}
             </div>
           </div>
-          
-          <button 
-            className="nav-btn next-btn" 
+
+          <button
+            className="nav-btn next-btn"
             onClick={(e) => {
               e.stopPropagation();
               goToNext();

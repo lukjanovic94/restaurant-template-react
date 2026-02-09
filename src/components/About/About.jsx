@@ -1,9 +1,9 @@
-import aboutData from "./aboutData";
+import aboutData from "../../data/aboutData";
 import "./About.css";
 
 function About() {
   return (
-    <section className="about">
+    <section className="about" id="about">
       <div className="about-container">
         <h2>{aboutData.title}</h2>
 

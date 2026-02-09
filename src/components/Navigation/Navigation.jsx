@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { siteConfig } from "../data/siteConfig";
+import { siteConfig } from "../../data/siteConfig";
 import { useEffect } from "react";
 
 function Navigation() {
@@ -45,11 +45,17 @@ function Navigation() {
           <a href="#home" onClick={() => setIsOpen(false)}>
             Početna
           </a>
+          <a href="#features" onClick={() => setIsOpen(false)}>
+            Usluge
+          </a>
           <a href="#menu" onClick={() => setIsOpen(false)}>
             Meni
           </a>
           <a href="#about" onClick={() => setIsOpen(false)}>
             O nama
+          </a>
+          <a href="#gallery" onClick={() => setIsOpen(false)}>
+            Galerija
           </a>
           <a href="#contact" onClick={() => setIsOpen(false)}>
             Kontakt

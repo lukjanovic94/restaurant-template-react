@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import heroImages from "./heroImages";
+import heroImages from "../../data/heroImages";
 import "./Hero.css";
 
 function Hero() {
@@ -14,7 +14,7 @@ function Hero() {
   }, []);
 
   return (
-    <section className="hero">
+    <section className="hero" id="home">
       {heroImages.map((img, index) => (
         <div
           key={index}

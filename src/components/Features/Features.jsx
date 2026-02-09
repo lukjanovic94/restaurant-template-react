@@ -1,9 +1,9 @@
-import featuresData from "./featuresData";
+import featuresData from "../../data/featuresData";
 import "./Features.css";
 
 function Features() {
   return (
-    <section className="features">
+    <section className="features" id="features">
       <div className="features-container">
         {featuresData.map((item, index) => (
           <div className="feature-card" key={index}>

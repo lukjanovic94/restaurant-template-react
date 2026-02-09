@@ -1,6 +1,9 @@
 .hero {
     position: relative;
+    /* Fallback for older browsers */
     height: 90vh;
+    /* Modern browsers - dynamic viewport accounts for mobile UI */
+    height: 90dvh;
     overflow: hidden;
 }
 

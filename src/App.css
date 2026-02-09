@@ -3,7 +3,7 @@
   /* Prevent horizontal scroll */
   overflow-x: hidden;
   width: 100%;
-  min-height: 100vh;
+  /* REMOVED: min-height: 100vh - This was preventing proper scrolling! */
 }
 
 .App-logo {
@@ -36,6 +36,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
