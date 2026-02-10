@@ -3,8 +3,9 @@
     color: #e0e0e0;
     padding: 3rem 1.5rem 2rem;
     border-top: 1px solid #2a2a2a;
-    padding-bottom: 7rem;
-    padding-bottom: calc(7rem + env(safe-area-inset-bottom));
+    /* FIX: use a single padding-bottom with calc() so the safe-area value
+       isn't silently overwritten by a second rule on the same property */
+    padding-bottom: calc(4rem + env(safe-area-inset-bottom, 0px));
 }
 
 .footer-container {
@@ -14,16 +15,13 @@
 
 .footer-content {
     display: grid;
-    /* grid-template-columns: repeat(2, 1fr); */
     gap: 2.5rem;
     margin-bottom: 2rem;
-
 }
 
 /* Footer Section */
 .footer-section h3 {
     color: #f5deb3;
-    /* wheat */
     font-size: 1.1rem;
     margin-bottom: 1rem;
     font-weight: 600;
@@ -187,8 +185,8 @@
 @media (min-width: 600px) {
     .footer {
         padding: 4rem 2rem 2.5rem;
-        padding-bottom: 7rem;
-        padding-bottom: calc(7rem + env(safe-area-inset-bottom));
+        /* FIX: Keep the safe-area padding at tablet too */
+        padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px));
     }
 
     .footer-content {
@@ -205,6 +203,9 @@
 @media (min-width: 992px) {
     .footer {
         padding: 5rem 2rem 3rem;
+        /* FIX: Desktop also needs safe-area for devices with home bars
+           (iPad, MacBook with notch, etc.). Use a sensible minimum of 3rem. */
+        padding-bottom: max(3rem, env(safe-area-inset-bottom, 0px));
     }
 
     .footer-content {
