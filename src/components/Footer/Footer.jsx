@@ -1,4 +1,4 @@
-import footerData from "../../data/footerData";
+import { siteConfig } from "../../data/siteConfig";
 import "./Footer.css";
 
 function Footer() {
@@ -10,12 +10,12 @@ function Footer() {
         <div className="footer-content">
           {/* Brand Section */}
           <div className="footer-section footer-brand">
-            <span className="brand-name">{footerData.name}</span>
-            <p className="brand-description">{footerData.description}</p>
+            <span className="brand-name">{siteConfig.name}</span>
+            <p className="brand-description">{siteConfig.tagline}</p>
             <div className="social-links">
-              {footerData.social.instagram && (
+              {siteConfig.social.instagram && (
                 <a
-                  href={footerData.social.instagram}
+                  href={siteConfig.social.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-link"
@@ -24,9 +24,9 @@ function Footer() {
                   📷
                 </a>
               )}
-              {footerData.social.facebook && (
+              {siteConfig.social.facebook && (
                 <a
-                  href={footerData.social.facebook}
+                  href={siteConfig.social.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-link"
@@ -44,15 +44,15 @@ function Footer() {
             <div className="contact-info">
               <div className="contact-item">
                 <span className="contact-icon">📍</span>
-                <span>{footerData.address}</span>
+                <span>{siteConfig.address}</span>
               </div>
               <div className="contact-item">
                 <span className="contact-icon">📞</span>
-                <a href={`tel:${footerData.phone}`}>{footerData.phone}</a>
+                <a href={`tel:${siteConfig.phone}`}>{siteConfig.phone}</a>
               </div>
               <div className="contact-item">
                 <span className="contact-icon">✉️</span>
-                <a href={`mailto:${footerData.email}`}>{footerData.email}</a>
+                <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
               </div>
             </div>
           </div>
@@ -72,14 +72,14 @@ function Footer() {
           {/* Hours Section */}
           <div className="footer-section">
             <h3>Radno vreme</h3>
-            <p style={{ marginBottom: "0.5rem" }}>{footerData.hours}</p>
+            <p style={{ marginBottom: "0.5rem" }}>{siteConfig.hours}</p>
           </div>
         </div>
 
         {/* Footer Bottom */}
         <div className="footer-bottom">
           <p>
-            &copy; {currentYear} {footerData.name}. Sva prava zadržana.
+            &copy; {currentYear} {siteConfig.name}. Sva prava zadržana.
           </p>
         </div>
       </div>
