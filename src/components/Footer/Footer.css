@@ -57,13 +57,13 @@
 }
 
 /* Contact Info */
-.contact-info {
+.contact-info-footer {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 }
 
-.contact-item {
+.contact-item_footer {
     display: flex;
     align-items: flex-start;
     gap: 0.8rem;

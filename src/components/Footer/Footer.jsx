@@ -41,16 +41,16 @@ function Footer() {
           {/* Contact Section */}
           <div className="footer-section">
             <h3>Kontakt</h3>
-            <div className="contact-info">
-              <div className="contact-item">
+            <div className="contact-info-footer">
+              <div className="contact-item_footer">
                 <span className="contact-icon">📍</span>
                 <span>{siteConfig.address}</span>
               </div>
-              <div className="contact-item">
+              <div className="contact-item_footer">
                 <span className="contact-icon">📞</span>
                 <a href={`tel:${siteConfig.phone}`}>{siteConfig.phone}</a>
               </div>
-              <div className="contact-item">
+              <div className="contact-item_footer">
                 <span className="contact-icon">✉️</span>
                 <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
               </div>

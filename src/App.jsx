@@ -7,7 +7,7 @@ import Features from "./components/Features/Features";
 import Highlights from "./components/Highlights/Highlights";
 import About from "./components/About/About";
 import Gallery from "./components/Gallery/Gallery";
-import ContactSection from "./components/ContactSection/ContactSection";
+import Contact from "./components/Contact/Contact";
 import Footer from "./components/Footer/Footer";
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
       <Highlights />
       <About />
       <Gallery />
-      <ContactSection />
+      <Contact />
       <Footer />
     </>
   );
