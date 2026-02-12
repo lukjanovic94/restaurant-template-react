@@ -1,6 +1,6 @@
 /* ─── Section shell ─────────────────────────────────────────── */
 .contact-section {
-    padding: 4rem 1rem 0;
+    padding: 1rem 1rem 0;
     background-color: #111;
     color: #fff;
 }
@@ -14,6 +14,7 @@
 .contact-title {
     font-size: clamp(1.75rem, 5vw, 2.25rem);
     margin-bottom: 0.5rem;
+    text-align: center;
 }
 
 .contact-subtitle {
